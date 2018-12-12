@@ -1,0 +1,10 @@
+node_modules
+dist
+.tmp
+config.codekit
+.codekit-cache
+.DS_Store
+.DS_Store?
+.Spotlight-V100
+.Trashes
+Thumbs.db
