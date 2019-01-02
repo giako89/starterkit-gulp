@@ -14,7 +14,7 @@ var gulp = require('gulp'),
     fileinclude = require('gulp-file-include'),
     htmlmin = require('gulp-htmlmin'),
     inlinesource = require('gulp-inline-source'),
-  //  babel = require("gulp-babel"),
+    babel = require("gulp-babel"),
     browserSync = require('browser-sync').create();
 
 /* base urls */
@@ -58,6 +58,7 @@ gulp.task('css:min', function() {
 gulp.task('js:min', function () {
     return gulp.src([
         SRC+'js/*.js'])
+        .pipe(babel())
         .pipe(uglify())
         .pipe(concat('app.js'))
         .pipe(rename('app.min.js'))
@@ -70,6 +71,7 @@ gulp.task('js:concat', function () {
   return gulp.src([
     SRC+'js/*.js'])
       .pipe(concat('app.js'))
+      .pipe(babel())
       .pipe(rename('app.min.js'))
       .pipe(gulp.dest( DIST + 'js'))
       .on('error', gutil.log)

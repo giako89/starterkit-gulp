@@ -1,2 +1,2 @@
-console.log('asd');
-console.log('lol');
+// babel test
+[1, 2, 3].map((n) => n + 1);
