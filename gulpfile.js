@@ -14,6 +14,7 @@ var gulp = require('gulp'),
     fileinclude = require('gulp-file-include'),
     htmlmin = require('gulp-htmlmin'),
     inlinesource = require('gulp-inline-source'),
+  //  babel = require("gulp-babel"),
     browserSync = require('browser-sync').create();
 
 /* base urls */
@@ -53,16 +54,25 @@ gulp.task('css:min', function() {
 
 });
 
-/* minify js */
+/* concat & minify js */
 gulp.task('js:min', function () {
     return gulp.src([
         SRC+'js/*.js'])
-    //.pipe(uglify())
+        .pipe(uglify())
         .pipe(concat('app.js'))
-        .pipe(gulp.dest( DIST + 'js'))
         .pipe(rename('app.min.js'))
         .pipe(gulp.dest( DIST + 'js'))
         .on('error', gutil.log)
+});
+
+/* concat js */
+gulp.task('js:concat', function () {
+  return gulp.src([
+    SRC+'js/*.js'])
+      .pipe(concat('app.js'))
+      .pipe(rename('app.min.js'))
+      .pipe(gulp.dest( DIST + 'js'))
+      .on('error', gutil.log)
 });
 
 gulp.task('fileinclude', function() {
@@ -118,7 +128,7 @@ gulp.task('inlinesource', function () {
 
 // DEV, WATCH
 gulp.task('default', function(){
-    runSequence('clear','clean','css:min','js:min','image:min','fileinclude','files','fonts','serve');
+    runSequence('clear','clean','css:min','js:concat','image:min','fileinclude','files','fonts','serve');
 });
 
 // PROD
